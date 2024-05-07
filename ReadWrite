@@ -1,0 +1,46 @@
+Program for reading sensor data:
+
+● Detect the port of connection of the kobuki robot from the Device Manager (COM10).
+● Set the baud rate to 115200.
+
+import serial
+import time
+ser = serial.Serial('COM10', 115200)
+while(1):
+    if(int.from_bytes(ser.read(2), byteorder='little')==333):
+        temp = ser.read(150)
+        in_buff=[x for x in temp]
+        print(in_buff)
+        time.sleep(1000)
+
+
+Write data:
+• Play ON sound from (Sound Sequence bit sequence).
+• Play OFF sound from (Sound Sequence bit sequence).
+
+
+import serial
+import time
+ser = serial.Serial('COM10', 115200)
+barr = bytearray([170,85,3,4,1,0,6])
+ser.write(barr)
+time.sleep(1)
+
+import serial
+import time
+ser = serial.Serial('COM10', 115200)
+barr = bytearray([170,85,3,4,1,1,7])
+ser.write(barr)
+time.sleep(1)
+
+Write data:
+• Translational motion of kobuki bot with speed of 100mm/s forward
+import serial
+import time
+ser = serial.Serial('COM10', 115200)
+barr = bytearray([170,85,6,1,4,100,0,103])
+ser.write(barr)
+time.sleep(1)
+
+
+                 
